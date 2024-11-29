@@ -19,6 +19,8 @@ from alphafold3.model import confidence_types
 from alphafold3.model import mmcif_metadata
 from alphafold3.model.components import base_model
 import numpy as np
+import matplotlib.pyplot as plt
+import json
 
 
 @dataclasses.dataclass(frozen=True, slots=True, kw_only=True)
@@ -107,6 +109,18 @@ def write_output(
 
   with open(os.path.join(output_dir, f'{prefix}confidences.json'), 'wb') as f:
     f.write(processed_result.structure_full_data_json)
+  with open(os.path.join(output_dir, f'{prefix}confidences.json'), 'r') as f:
+      pae_data = json.load(f)
+  pae_matrix = np.array(pae_data['pae'])
+  plt.figure(figsize=(10, 8))
+  plt.imshow(pae_matrix, cmap='viridis', interpolation='nearest')
+  plt.colorbar(label='PAE (�~E)')
+  plt.title('Predicted Aligned Error (PAE)')
+  plt.xlabel('Residue Index')
+  plt.ylabel('Residue Index')
+  plt.tight_layout()
+  plt.savefig(os.path.join(output_dir, f'{prefix}confidences.png'))
+  plt.close()
 
   if terms_of_use is not None:
     with open(os.path.join(output_dir, 'TERMS_OF_USE.md'), 'wt') as f:

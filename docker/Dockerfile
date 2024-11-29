@@ -10,6 +10,11 @@
 
 FROM nvidia/cuda:12.6.0-base-ubuntu22.04
 
+ARG UNAME
+ARG GID
+ARG GNAME
+RUN groupadd -g $GID -o $GNAME
+
 # Some RUN statements are combined together to make Docker build run faster.
 # Get latest package listing, install software-properties-common, git, wget,
 # compilers and libraries.

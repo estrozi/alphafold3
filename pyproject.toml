@@ -29,6 +29,7 @@ dependencies = [
     "tqdm",
     "typeguard==2.13.3",
     "zstandard",
+    "matplotlib",
 ]
 
 [project.optional-dependencies]
