@@ -64,8 +64,8 @@ if($status) goto failed;
 chown ${u}:${g} $outdir2/running.txt
 if($status) goto failed;
 
-  if( -e $outdir2/${name}/ranking_scores.csv && ! -z $outdir2/${name}/ranking_scores.csv ) then
-echo "Final file ranking_scores.csv found. Aborting..."
+  if( -e $outdir2/${name}/${name}_data.json && ! -z $outdir2/${name}/${name}_data.json ) then
+echo "Final json file found. Aborting..."
 echo "This probably means that this prediction was already calculated before."
 echo "Moving $outdir2 to $outdir"
 rm -f $outdir2/running.txt;
